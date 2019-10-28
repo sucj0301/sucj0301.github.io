@@ -1,0 +1,983 @@
+<!DOCTYPE html><html><head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="sucj"><meta name="renderer" content="webkit"><meta name="copyright" content="sucj"><meta name="keywords" content="小小苏的个人博客"><meta name="description" content="null"><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>Linux(ubuntu16.04) · Mr.Long's Blog</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/favicon.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
+
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
+
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
+
+
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="/img/assets/cat.png"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">longlongyu</div><div class="profile-signature">for me</div><div class="friends"><div>FRIENDS</div><span><a href="//github.com/Longlongyu" target="_black">friendA</a></span><span><a href="//github.com/" target="_black">friendB</a></span><span><a href="//github.com/" target="_black">friendC</a></span></div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/">Mr.Long's Blog</a></div><div class="intro-nav-label-box"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">Linux(ubuntu16.04)</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-calendar"></i><span>2019-08-17</span></span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><h2 id="一、Linux简介"><a href="#一、Linux简介" class="headerlink" title="一、Linux简介"></a>一、Linux简介</h2><p><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Linux是一种自由和开放源码的操作系统，有很多不同的版本，比如RedHat、SuSE、Ubuntu、Fedora、GentOS等等，它可以安装在手机、平板电脑、路由器、台式计算机等各种计算机硬件设备中。</strong></p>
+<hr>
+<h2 id="二、Linux特点"><a href="#二、Linux特点" class="headerlink" title="二、Linux特点"></a>二、Linux特点</h2><ol>
+<li><p>开源免费</p>
+</li>
+<li><p>安全稳定</p>
+</li>
+<li><p>多用户多任务</p>
+</li>
+<li><p>广泛的硬件支持</p>
+</li>
+<li><p>模块化程度高</p>
+</li>
+<li><p>良好的移植性</p>
+</li>
+</ol>
+<hr>
+<h2 id="三、Linux的使用"><a href="#三、Linux的使用" class="headerlink" title="三、Linux的使用"></a>三、Linux的使用</h2><h3 id="1-用户管理"><a href="#1-用户管理" class="headerlink" title="1.用户管理"></a>1.用户管理</h3><blockquote>
+<p><strong>在学习Linux命令之前要了解的东西：</strong><br>  /etc/passwd和/etc/shadow(保存Linux用户名和密码的两个重要文件)</p>
+</blockquote>
+<ul>
+<li>1)/etc/passwd内容格式说明(冒号隔开算一列)</li>
+<li>例：root:x:0:0:root:/root:/bin/bash</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">列数</th>
+<th align="center">含义</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">用户名</td>
+<td align="center">是UID字符串标记方式，方便阅读</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">密码</td>
+<td align="center">保存在/etc/shadow中，此处用x表示</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">UID</td>
+<td align="center">用户的数字ID</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center">GID</td>
+<td align="center">用户组的数字ID</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="center">说明栏</td>
+<td align="center">类似于注释，</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td align="center">家目录</td>
+<td align="center">用户登录后所处的目录</td>
+</tr>
+<tr>
+<td align="center">7</td>
+<td align="center">登录Shell</td>
+<td align="center">用户登录后所使用的Shell</td>
+</tr>
+</tbody></table>
+<br>
+
+<ul>
+<li>2)/etc/shadow内容格式说明</li>
+<li>例：sucj:$6$FR/sXSFK$Bn0sk/DBW1F1ybfjIutSMWS4tMKwtHOP4NR/KCW833JonmuDhEVfTXAW7ylpRnAC0bi.qPj1XgoBCqTnOubbL/:18123:0:99999:7:::</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">列数</th>
+<th align="center">含义</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">用户名</td>
+<td align="center">是UID字符串标记方式，方便阅读</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">密码</td>
+<td align="center">经过加密后的密码</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">密码的最近修改日期</td>
+<td align="center">从1970年1月1日到密码修改日的天数</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="center">密码不可修改的天数</td>
+<td align="center">修改密码之后，几天内不可修改，如果是0，则可以随时修改</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td align="center">密码重新修改的天数</td>
+<td align="center">密码修改时间，在密码到期之前会提醒用户修改密码</td>
+</tr>
+<tr>
+<td align="center">7</td>
+<td align="center">密码失效前提前警告的天数</td>
+<td align="center">设定密码到期前几天内提醒用户修改密码</td>
+</tr>
+<tr>
+<td align="center">8</td>
+<td align="center">账号失效日期</td>
+<td align="center">一般为空</td>
+</tr>
+<tr>
+<td align="center">9</td>
+<td align="center">保留字段</td>
+<td align="center">暂时没有使用</td>
+</tr>
+</tbody></table>
+<br>
+
+<ul>
+<li>一些关键字和符号</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">关键字/符号</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">root</td>
+<td align="center">超级管理员（至高无上的权限）</td>
+</tr>
+<tr>
+<td align="center">~$</td>
+<td align="center">说明当前是root用户</td>
+</tr>
+<tr>
+<td align="center">~#</td>
+<td align="center">说明当前是普通用户</td>
+</tr>
+</tbody></table>
+<br>
+
+<blockquote>
+<p><strong>1)创建新用户</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">adduser xxx</td>
+<td align="center">新建用户xxx</td>
+</tr>
+</tbody></table>
+<p><strong>过程</strong></p>
+<ul>
+<li><ol>
+<li>新建组，组名与用户名保持一致<br>/etc/group    保存了组信息</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>新建用户，并且将用户当道刚刚新建的组中<br>/etc/passwd     保存了用户信息<br>/etc/shadow      保存了用户的密码信息    </li>
+</ol>
+</li>
+<li><ol start="3">
+<li>创建了一个家目录 /home/xxx</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>拷贝到用户家目录 etc/skel</li>
+</ol>
+</li>
+</ul>
+<br>
+
+<blockquote>
+<p><strong>2)删除用户</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">userdel xxx</td>
+<td align="center">删除用户信息</td>
+</tr>
+<tr>
+<td align="center">userdel -r xxx</td>
+<td align="center">删除用户信息，并且将用户家目录和邮件信息</td>
+</tr>
+</tbody></table>
+<br>
+
+<blockquote>
+<p><strong>3)切换用户</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">su</td>
+<td align="center">切换到root用户，但用户环境是切换前的用户的环境</td>
+</tr>
+<tr>
+<td align="center">su -</td>
+<td align="center">切换到root用户，并且应用root的用户环境</td>
+</tr>
+<tr>
+<td align="center">su xxx</td>
+<td align="center">切换到普通用户xxx，但用户环境是root的用户环境</td>
+</tr>
+<tr>
+<td align="center">su - xxx</td>
+<td align="center">切换到普通用户xxx，并且用户环境是xxx的用户环境</td>
+</tr>
+<tr>
+<td align="center">exit</td>
+<td align="center">直接返回到上次使用的用户</td>
+</tr>
+</tbody></table>
+<br>
+
+<blockquote>
+<p><strong>4)修改密码</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">~$ passwd xxx</td>
+<td align="center">修改用户xxx的密码(密码可以很简单且无需知道xxx当前密码)</td>
+</tr>
+<tr>
+<td align="center">~# passwd</td>
+<td align="center">修改自己的密码(普通用户也可以),需提供当前密码且新密码不能太简单</td>
+</tr>
+</tbody></table>
+<br>
+
+<blockquote>
+<p><strong>5)修改用户</strong></p>
+</blockquote>
+<ul>
+<li>可以先用命令cat /etc/passwd | grep xxx 查看用户xxx当前所在目录</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">描述</th>
+<th align="center">使用方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">usermod -d</td>
+<td align="center">修改用户家目录</td>
+<td align="center">usermod -d /home/xxx-n -m xxx(-m参数的作用是如果指定的用户家目录不存在，就自动创建新目录xxx-n，并使用该目录作为xxx 的新家目录，如果没有这个参数则会报错)</td>
+</tr>
+<tr>
+<td align="center">usermod -g</td>
+<td align="center">修改用户组ID</td>
+<td align="center">usermod -g 1008 zhangsan(将zhangsan的组ID换成1008)</td>
+</tr>
+<tr>
+<td align="center">usermod -L</td>
+<td align="center">冻结账号(账号出现异常时可使用)</td>
+<td align="center">usermod -L xxx(被冻结的账号在第二列也就是密码最前面有个感叹号)</td>
+</tr>
+</tbody></table>
+<br>
+
+<blockquote>
+<p><strong>6)修改组信息</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">groupadd group1</td>
+<td align="center">创建一个组名为group1的组</td>
+</tr>
+<tr>
+<td align="center">groupdel group1</td>
+<td align="center">删除组group1</td>
+</tr>
+<tr>
+<td align="center">groupmod -n group2 group1</td>
+<td align="center">把组名group1改为group2</td>
+</tr>
+<tr>
+<td align="center">groupmod -g 333 group1</td>
+<td align="center">把组group1的数字ID改为333</td>
+</tr>
+</tbody></table>
+<br>
+
+<blockquote>
+<p><strong>7)检查用户信息</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">users</td>
+<td align="center">查看当前系统有哪些用户</td>
+</tr>
+<tr>
+<td align="center">who</td>
+<td align="center">查看当前系统的用户以及它们的登录终端、登录时间</td>
+</tr>
+<tr>
+<td align="center">w</td>
+<td align="center">(比上两个命令更详细的信息，见下表)</td>
+</tr>
+<tr>
+<td align="center">finger</td>
+<td align="center">显示系统登录用户的信息，后可跟某个用户名以显示该用户更详细的信息</td>
+</tr>
+</tbody></table>
+<ul>
+<li>其中w显示的信息：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">列数</th>
+<th align="center">列名</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">USER</td>
+<td align="center">登录用户的用户名</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">TTY</td>
+<td align="center">用户登录终端</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">FROM</td>
+<td align="center">如果用户从网络登录，则显示远程主机的主机名或IP地址</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center">LOGIN@</td>
+<td align="center">用户登录时间</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="center">IDLE</td>
+<td align="center">用户闲置时间</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td align="center">JCPU</td>
+<td align="center">与终端相关的当前所有运行进程消耗的CPU时间总量</td>
+</tr>
+<tr>
+<td align="center">7</td>
+<td align="center">PCPU</td>
+<td align="center">当前WHAT列所对应的进程所消耗的CPU时间总量</td>
+</tr>
+<tr>
+<td align="center">8</td>
+<td align="center">WHAT</td>
+<td align="center">用户当前运行的进程</td>
+</tr>
+</tbody></table>
+<br>
+
+<h3 id="2-Linux的目录结构"><a href="#2-Linux的目录结构" class="headerlink" title="2.Linux的目录结构"></a>2.Linux的目录结构</h3><table>
+<thead>
+<tr>
+<th align="center">目录</th>
+<th align="center">目录的用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">/home</td>
+<td align="center">普通用户的家目录(默认情况下普通用户只能在用户家目录中进行更新操作)</td>
+</tr>
+<tr>
+<td align="center">/root</td>
+<td align="center">root用户的家目录</td>
+</tr>
+<tr>
+<td align="center">/etc</td>
+<td align="center">系统配置文件的目录</td>
+</tr>
+<tr>
+<td align="center">/opt</td>
+<td align="center">第三方软件解压安装的目录</td>
+</tr>
+<tr>
+<td align="center">/usr</td>
+<td align="center">存放与用户直接相关的文件和目录(文件的默认目录)</td>
+</tr>
+<tr>
+<td align="center">/var</td>
+<td align="center">存放那些在时间、大小、内容上会经常变化的文件(比如日志文件)</td>
+</tr>
+<tr>
+<td align="center">/sys</td>
+<td align="center">系统目录，用于存放系统信息</td>
+</tr>
+<tr>
+<td align="center">/dev</td>
+<td align="center">设备文件，包括硬盘和显示器</td>
+</tr>
+<tr>
+<td align="center">/bin</td>
+<td align="center">常见的用户指令</td>
+</tr>
+<tr>
+<td align="center">/boot</td>
+<td align="center">内核和启动文件</td>
+</tr>
+<tr>
+<td align="center">/lib</td>
+<td align="center">系统函数库目录</td>
+</tr>
+<tr>
+<td align="center">/lost+found</td>
+<td align="center">ext3文件系统需要的目录，用于磁盘检查</td>
+</tr>
+<tr>
+<td align="center">/mnt</td>
+<td align="center">用于加载各种文件系统</td>
+</tr>
+<tr>
+<td align="center">/proc</td>
+<td align="center">虚拟文件系统</td>
+</tr>
+<tr>
+<td align="center">/sbin</td>
+<td align="center">存放系统管理命令</td>
+</tr>
+<tr>
+<td align="center">/tmp</td>
+<td align="center">临时文件的存放目录</td>
+</tr>
+<tr>
+<td align="center">/media</td>
+<td align="center">用来加载各种媒体等临时文件的挂载点</td>
+</tr>
+</tbody></table>
+<br>
+
+<blockquote>
+<p>绝对路径和相对路径</p>
+</blockquote>
+<ul>
+<li><p>绝对路径：从根目录开始的全路径，一定是以 / 开头(比如/usr/local/src)</p>
+</li>
+<li><p>当前目录：可使用命令pwd查看</p>
+</li>
+<li><p>特殊目录：(.)和(..)<br> 一个点(.)代表当前目录<br> 两个点(..)代表当前目录的上层目录</p>
+</li>
+<li><p>相对路径：相对于当前路径的路径。比如<br> cd .    表示进入当前目录<br> cd ..   表示进入当前目录的上层目录</p>
+</li>
+</ul>
+<br>
+
+<h3 id="3-文件系统"><a href="#3-文件系统" class="headerlink" title="3.文件系统"></a>3.文件系统</h3><p><strong>1、新建目录</strong> </p>
+<table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">mkdir linux es5 es6</td>
+<td align="center">在当前目录下创建多个文件</td>
+</tr>
+<tr>
+<td align="center">mkdir -p day/a/b/c</td>
+<td align="center">在多个嵌套文件夹中创建文件</td>
+</tr>
+</tbody></table>
+<br>
+
+<p><strong>2、新建文件/修改最近访问时间</strong></p>
+<ul>
+<li>touch 文件名 ： 如果指定的文件名不在，创建该文件。如果存在，修改最近访问时间为当前时间</li>
+</ul>
+<br>
+
+<p><strong>3、拷贝文件或者目录</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">cp a.txt /tmp/a-copy.txt</td>
+<td align="center">把文件a.txt复制到文件夹/tmp并命名为a-copy.txt</td>
+</tr>
+<tr>
+<td align="center">cp a.txt /tmp/</td>
+<td align="center">把文件复制到文件夹/tmp但保持原文件名不变</td>
+</tr>
+<tr>
+<td align="center">cp -r dir1 dir2</td>
+<td align="center">将dir1目录复制成dir2目录</td>
+</tr>
+</tbody></table>
+<br>
+
+<p><strong>4、链接</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">$ ln  a.txt  a.txt.h</td>
+<td align="center">创建硬链接(防止误删除，多个指针指向同一个inode)</td>
+</tr>
+<tr>
+<td align="center">$ ln  -s  a.txt  a.txt.s</td>
+<td align="center">创建软链接 (快捷方式)</td>
+</tr>
+</tbody></table>
+ <br>
+
+<p><strong>5、移动和重命名</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">mv a.txt /mnt/</td>
+<td align="center">移动文件a.txt到目录/mnt中</td>
+</tr>
+<tr>
+<td align="center">mv a.* dir1</td>
+<td align="center">将前缀为a的所有文件移动到文件夹dir1中</td>
+</tr>
+<tr>
+<td align="center">mv a.txt a.doc</td>
+<td align="center">将文件a.txt重命名为a.doc</td>
+</tr>
+</tbody></table>
+<br>
+
+<p><strong>6、删除文件</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">rm a.txt</td>
+<td align="center">删除a.txt文件</td>
+</tr>
+<tr>
+<td align="center">rm -r dir1</td>
+<td align="center">删除dir1文件夹</td>
+</tr>
+<tr>
+<td align="center">rmdir dir2</td>
+<td align="center">删除文件夹dir2，前提是dir2一定是空文件夹</td>
+</tr>
+</tbody></table>
+<br>
+
+<p><strong>7、重定向</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">date &gt; a.txt</td>
+<td align="center">将当前时间打印到a.txt中，如果a.txt中有内容则会被覆盖</td>
+</tr>
+<tr>
+<td align="center">date &gt;&gt; a.txt</td>
+<td align="center">将当前时间打印到a.txt中，如果a.txt中有内容则回追加在后面</td>
+</tr>
+<tr>
+<td align="center">more /etc/passwd &gt; b.txt</td>
+<td align="center">将/etc目录下的passwd中的内容打印到b.txt中</td>
+</tr>
+<tr>
+<td align="center">ls -l /etc &gt; c.txt</td>
+<td align="center">将/etc目录下的内容以长内容形式打印到c.txt中</td>
+</tr>
+</tbody></table>
+<br>
+
+<p><strong>8、压缩与解压</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">压缩形式</th>
+<th align="center">含义</th>
+<th align="center">压缩后的文件后缀名</th>
+<th align="center">解压方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">gzip a.txt</td>
+<td align="center">压缩文件a.txt</td>
+<td align="center">.gz</td>
+<td align="center">gunzip a.txt.gz</td>
+</tr>
+<tr>
+<td align="center">bzip2 b.txt</td>
+<td align="center">压缩文件b.txt</td>
+<td align="center">.bz2</td>
+<td align="center">bunzip2 b.txt.bz2</td>
+</tr>
+<tr>
+<td align="center">zip all.zip *.txt</td>
+<td align="center">打包压缩</td>
+<td align="center">.zip</td>
+<td align="center">unzip all.zip</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>打包压缩zip后紧跟的是压缩后的包名(自己命名)，再后面是要压缩的文件，可以压缩多个文件和目录，用空格隔开列出即可。如果要压缩目录，记得在zip后加 -r 参数。</p>
+</blockquote>
+<br>
+
+<p><strong>9、归档和拆档(tar)</strong></p>
+<blockquote>
+<p>归档：</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-c</td>
+<td align="center">创建归档文件</td>
+</tr>
+<tr>
+<td align="center">-x</td>
+<td align="center">拆档</td>
+</tr>
+<tr>
+<td align="center">-v</td>
+<td align="center">打印细节</td>
+</tr>
+<tr>
+<td align="center">-f</td>
+<td align="center">指定归档/拆档文件</td>
+</tr>
+<tr>
+<td align="center">-j</td>
+<td align="center">bzip2格式 (xxx.tar.bz2)</td>
+</tr>
+<tr>
+<td align="center">-z</td>
+<td align="center">gzip格式 (xxx.tar.gz)</td>
+</tr>
+</tbody></table>
+<ul>
+<li>使用方法</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">tar cvf all.tar *.txt</td>
+<td align="center">将后缀名为.txt的文件归档为all.tar,并打印细节</td>
+</tr>
+<tr>
+<td align="center">tar cvzf all.tar.gz *.txt</td>
+<td align="center">将后缀名为.txt的文件归档为all.tar,并且压缩格式为gzip，打印细节</td>
+</tr>
+<tr>
+<td align="center">tar cvjf all.tar.bz2 *.txt</td>
+<td align="center">将后缀名为.txt的文件归档为all.tar，并且压缩格式为bzip2，打印细节</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>拆档：tar xvf all.tar.gz</p>
+</blockquote>
+<br>
+
+<p><strong>10、其它命令</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">clear</td>
+<td align="center">清理终端屏幕</td>
+</tr>
+<tr>
+<td align="center">ls /home</td>
+<td align="center">列出价目录的所有目录和文件</td>
+</tr>
+<tr>
+<td align="center">ls -l</td>
+<td align="center">列出每个文件的详细信息</td>
+</tr>
+<tr>
+<td align="center">ls -a</td>
+<td align="center">同时列出隐藏文件</td>
+</tr>
+<tr>
+<td align="center">ls -al</td>
+<td align="center">格式化地输出文件的详细信息</td>
+</tr>
+<tr>
+<td align="center">ls -lrt</td>
+<td align="center">按时间显示文件</td>
+</tr>
+<tr>
+<td align="center">man</td>
+<td align="center">查看指定命令的手册，q代表退出手册，回车代表下一行，空格代表下一页</td>
+</tr>
+<tr>
+<td align="center">more</td>
+<td align="center">预览(不支持后退，所以在不需要后退的情况下使用比较方便)</td>
+</tr>
+<tr>
+<td align="center">less</td>
+<td align="center">预览(支持前后翻滚，可以向上翻页&lt;PgUp键&gt;,也可以向下翻页&lt;PgDn键&gt;)</td>
+</tr>
+<tr>
+<td align="center">head -n file1</td>
+<td align="center">查看一个文件的前n行，不加-n默认查看前十行</td>
+</tr>
+<tr>
+<td align="center">tail -n file1</td>
+<td align="center">查看一个文件的后n行，不加-n默认查看后十行</td>
+</tr>
+<tr>
+<td align="center">cat</td>
+<td align="center">查看文件的内容（链接后显示）</td>
+</tr>
+<tr>
+<td align="center">tac</td>
+<td align="center">把内容反过来显示(最后一行先显示，第一行最后显示)</td>
+</tr>
+<tr>
+<td align="center">nl</td>
+<td align="center">给输出的文件内容添加行号后显示</td>
+</tr>
+<tr>
+<td align="center">cd 或 cd ~</td>
+<td align="center">回到家目录</td>
+</tr>
+<tr>
+<td align="center">cd /</td>
+<td align="center">切换到根目录</td>
+</tr>
+<tr>
+<td align="center">cd ..</td>
+<td align="center">返回上一级目录</td>
+</tr>
+<tr>
+<td align="center">cd ../..</td>
+<td align="center">返回上两级目录</td>
+</tr>
+<tr>
+<td align="center">cd -</td>
+<td align="center">返回上次所在目录</td>
+</tr>
+<tr>
+<td align="center">cd /home/zhangsan</td>
+<td align="center">切换到指定目录</td>
+</tr>
+<tr>
+<td align="center">pwd</td>
+<td align="center">输出当前目录地址</td>
+</tr>
+<tr>
+<td align="center">grep str /tmp</td>
+<td align="center">在tmp目录下查找”str”</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="Linux的一些很可爱的快捷键："><a href="#Linux的一些很可爱的快捷键：" class="headerlink" title="Linux的一些很可爱的快捷键："></a>Linux的一些很可爱的快捷键：</h3><table>
+<thead>
+<tr>
+<th align="center">快捷键</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Ctrl + u</td>
+<td align="center">删除光标前(含光标所在字符)到行首的字符(在输错命令但Backspace啥的都用不了的时候，真的绝了)</td>
+</tr>
+<tr>
+<td align="center">Ctrl + k</td>
+<td align="center">删除光标后(含光标所在字符)到行尾的字符</td>
+</tr>
+<tr>
+<td align="center">Esc + Backspace</td>
+<td align="center">删除当前光标前全部命令，但是有的情况下用不了，不喜欢</td>
+</tr>
+<tr>
+<td align="center">Ctrl + C</td>
+<td align="center">终止前台运行的程序(取消当前输入的命令)</td>
+</tr>
+<tr>
+<td align="center">Ctrl + D</td>
+<td align="center">退出，相当于exit(返回)</td>
+</tr>
+<tr>
+<td align="center">Ctrl + a</td>
+<td align="center">光标移动到行首</td>
+</tr>
+<tr>
+<td align="center">Ctrl + e</td>
+<td align="center">光标移动到行尾</td>
+</tr>
+<tr>
+<td align="center">Ctrl + l</td>
+<td align="center">清屏,也可以是Ctrl + L</td>
+</tr>
+<tr>
+<td align="center">Tab</td>
+<td align="center">补全命令(只能补全命令和文件)，在命令没输全时按两下会给出所有以此开头的命令</td>
+</tr>
+<tr>
+<td align="center">！$</td>
+<td align="center">引用上一个命令的最后一个参数</td>
+</tr>
+</tbody></table>
+<ul>
+<li>！后面遇到再补充</li>
+</ul>
+</article><!-- lincense--><div class="license-wrapper"><p> <span>Author:  </span><a href="https://sucj0301.github.io">sucj</a></p><p> <span>Link:  </span><a href="https://sucj0301.github.io/2019/08/17/Linux-ubuntu16-04/">https://sucj0301.github.io/2019/08/17/Linux-ubuntu16-04/</a></p><p> <span>Copyright:  </span><span>All articles in this blog are licensed under <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/3.0">CC BY-NC-SA 3.0</a> unless stating additionally.</span></p></div><div class="post-paginator"><a class="prevSlogan" href="/2019/10/08/html5/" title="html5"><span>< PreviousPost</span><br><span class="prevTitle">html5</span></a><div class="clear"></div></div><div id="comment"></div></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io"><span>Hexo</span></a><span> | theme </span><a href="https://github.com/Longlongyu/hexo-theme-Cxo"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><div class="toc-wrapper" style="top: 70vh;"><div class="toc-catalog"><i class="fa fa-list"> </i><span>CATALOG</span></div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、Linux简介"><span class="toc-number">1.</span> <span class="toc-text">一、Linux简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、Linux特点"><span class="toc-number">2.</span> <span class="toc-text">二、Linux特点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、Linux的使用"><span class="toc-number">3.</span> <span class="toc-text">三、Linux的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-用户管理"><span class="toc-number">3.1.</span> <span class="toc-text">1.用户管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Linux的目录结构"><span class="toc-number">3.2.</span> <span class="toc-text">2.Linux的目录结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-文件系统"><span class="toc-number">3.3.</span> <span class="toc-text">3.文件系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux的一些很可爱的快捷键："><span class="toc-number">3.4.</span> <span class="toc-text">Linux的一些很可爱的快捷键：</span></a></li></ol></li></ol></div><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
