@@ -1,0 +1,241 @@
+<!DOCTYPE html><html><head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="sucj"><meta name="renderer" content="webkit"><meta name="copyright" content="sucj"><meta name="keywords" content="小小苏的个人博客"><meta name="description" content="null"><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>css-动画 · Mr.Long's Blog</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/favicon.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
+
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
+
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
+
+
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="/img/assets/cat.png"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">longlongyu</div><div class="profile-signature">for me</div><div class="friends"><div>FRIENDS</div><span><a href="//github.com/Longlongyu" target="_black">friendA</a></span><span><a href="//github.com/" target="_black">friendB</a></span><span><a href="//github.com/" target="_black">friendC</a></span></div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/">Mr.Long's Blog</a></div><div class="intro-nav-label-box"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">css-动画</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-calendar"></i><span>2019-08-12</span></span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><h2 id="一、动画定义"><a href="#一、动画定义" class="headerlink" title="一、动画定义"></a>一、动画定义</h2><blockquote>
+<p><strong>@keyframes(关键帧)规则:</strong><br>from和to分别代表动画的开始点和结束点（分别可以用0%和100%来表示)</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@keyframes 动画名称 &#123;</span><br><span class="line">	from&#123;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">	to&#123;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@keyframes 动画名称 &#123;</span><br><span class="line">	25%&#123;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">	50%&#123;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">	100%&#123;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="二、动画应用"><a href="#二、动画应用" class="headerlink" title="二、动画应用"></a>二、动画应用</h2><blockquote>
+<p><strong>1.指定关键帧的名称</strong><br>  animation-name: keyframename/none;</p>
+</blockquote>
+<blockquote>
+<p><strong>2.动画持续的时间（?s)</strong><br>  animation-duration: time;</p>
+</blockquote>
+<blockquote>
+<p><strong>3.动画延迟时间</strong><br>  animation-delay: time;</p>
+</blockquote>
+<blockquote>
+<p><strong>4.动画运动方向</strong><br>  animation-direction: normal/reverse/alternate/alternate-reverse/initial/inherit;</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">值</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">normal</td>
+<td align="center">默认值，动画按正常播放</td>
+</tr>
+<tr>
+<td align="center">reverse</td>
+<td align="center">动画反向播放</td>
+</tr>
+<tr>
+<td align="center">alternate</td>
+<td align="center">动画在奇数次（1、3、5…)正向播放，在偶数次（2、4、6…)反向播放</td>
+</tr>
+<tr>
+<td align="center">alternate-reverse</td>
+<td align="center">动画在奇数次（1、3、5…)反向播放，在偶数次（2、4、6…)正向播放</td>
+</tr>
+<tr>
+<td align="center">initial</td>
+<td align="center">设置该属性为它的默认值</td>
+</tr>
+<tr>
+<td align="center">inherit</td>
+<td align="center">从父元素集成该属性</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>5.动画结束后保留哪个样式</strong><br>  animation-fill-mode: none/forwards/backwards/both ;</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">值</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">none</td>
+<td align="center">不改变默认值</td>
+</tr>
+<tr>
+<td align="center">forwards</td>
+<td align="center">保留最后一帧的样式</td>
+</tr>
+<tr>
+<td align="center">backwards</td>
+<td align="center">保留第一帧的样式</td>
+</tr>
+<tr>
+<td align="center">both</td>
+<td align="center">动画会在两个方向上扩展动画属性</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>6.动画播放的次数</strong><br>  animation-iteration-count: n/infinite;</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">值</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">n</td>
+<td align="center">定义动画播放次数的数值</td>
+</tr>
+<tr>
+<td align="center">infinite</td>
+<td align="center">规定动画无限次数播放</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>7.动画执行的时间曲线</strong><br>  animation-timing-function: linear/steps(n)/ease/;</p>
+</blockquote>
+<ol>
+<li><p>linear: 动画从开始到结束的速度是相同的。（匀速）   </p>
+</li>
+<li><p>steps(n,start/end): (作用于两个关键帧之间，而非整个动画)</p>
+<ol>
+<li><p>把动画分成n步阶段性展示，n必须为整数。   </p>
+</li>
+<li><p>start和end可选。指定在每个间隔的起点还是终点发生阶跃变化。</p>
+<ul>
+<li>start：第一帧是第一步动画结束</li>
+<li>end  ：第一帧是第一步动画开始</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<blockquote>
+<p><strong>8.动画播放状态</strong><br>  animation-play-state: running/paused;</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">值</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">running</td>
+<td align="center">动画播放</td>
+</tr>
+<tr>
+<td align="center">paused</td>
+<td align="center">动画暂停</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>9.速写</strong><br>  animation: duration timing-function delay iteration-count direction move_eye ;</p>
+</blockquote>
+<hr>
+<h2 id="示例（css3仿梦幻西游动画特效）"><a href="#示例（css3仿梦幻西游动画特效）" class="headerlink" title="示例（css3仿梦幻西游动画特效）"></a>示例（css3仿梦幻西游动画特效）</h2><p><img src="https://i.loli.net/2019/08/12/4Ksi8oQX7WRbayJ.jpg" alt="-449598401.jpg"></p>
+</article><!-- lincense--><div class="license-wrapper"><p> <span>Author:  </span><a href="https://sucj0301.github.io">sucj</a></p><p> <span>Link:  </span><a href="https://sucj0301.github.io/2019/08/12/css3-动画/">https://sucj0301.github.io/2019/08/12/css3-动画/</a></p><p> <span>Copyright:  </span><span>All articles in this blog are licensed under <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/3.0">CC BY-NC-SA 3.0</a> unless stating additionally.</span></p></div><div class="post-paginator"><a class="prevSlogan" href="/2019/08/17/Linux-ubuntu16-04/" title="Linux(ubuntu16.04)"><span>< PreviousPost</span><br><span class="prevTitle">Linux(ubuntu16.04)</span></a><div class="clear"></div></div><div id="comment"></div></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io"><span>Hexo</span></a><span> | theme </span><a href="https://github.com/Longlongyu/hexo-theme-Cxo"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><div class="toc-wrapper" style="top: 70vh;"><div class="toc-catalog"><i class="fa fa-list"> </i><span>CATALOG</span></div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、动画定义"><span class="toc-number">1.</span> <span class="toc-text">一、动画定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、动画应用"><span class="toc-number">2.</span> <span class="toc-text">二、动画应用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#示例（css3仿梦幻西游动画特效）"><span class="toc-number">3.</span> <span class="toc-text">示例（css3仿梦幻西游动画特效）</span></a></li></ol></div><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
