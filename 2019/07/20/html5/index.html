@@ -1,0 +1,337 @@
+<!DOCTYPE html><html><head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="Jessa Su"><meta name="renderer" content="webkit"><meta name="copyright" content="Jessa Su"><meta name="keywords" content="小小苏的个人博客"><meta name="description" content="null"><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>html5 · Mr.Long's Blog</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/favicon.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
+
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
+
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
+
+
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="/img/assets/cat.png"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">longlongyu</div><div class="profile-signature">for me</div><div class="friends"><div>FRIENDS</div><span><a href="//github.com/Longlongyu" target="_black">friendA</a></span><span><a href="//github.com/" target="_black">friendB</a></span><span><a href="//github.com/" target="_black">friendC</a></span></div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/">Mr.Long's Blog</a></div><div class="intro-nav-label-box"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">html5</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-calendar"></i><span>2019-07-20</span></span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><h3 id="一、网页元素"><a href="#一、网页元素" class="headerlink" title="一、网页元素"></a>一、网页元素</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;内容&lt;/p&gt;                     段落标签</span><br><span class="line">&lt;a href=&quot;&quot;&gt;这是一个链接&lt;/a&gt;      a标签，定义链接</span><br><span class="line">&lt;hr&gt;                            换行</span><br><span class="line">.....</span><br></pre></td></tr></table></figure>
+
+<h3 id="二、属性"><a href="#二、属性" class="headerlink" title="二、属性"></a>二、属性</h3><blockquote>
+<p>在开始标签中可以添加属性</p>
+</blockquote>
+  <div 属性名="属性值"></div>
+  注：属性名不区分大小写
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;one&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;div ID=&quot;one&quot;&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>核心属性（绝大多数标签都可以应用的属性</p>
+</blockquote>
+<ul>
+<li>id         文档内部的唯一标识</li>
+<li>class     类</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;first one&quot;&gt;one&lt;/div&gt;</span><br><span class="line">&lt;div class=&quot;first two&quot;&gt;two&lt;/div&gt;</span><br><span class="line">&lt;div class=&quot;first three&quot;&gt;three&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>title     描述</li>
+<li>style     样式，取值为css规则(键值对，键值之间通过冒号分割，规则之间通过分号分割)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&apos;one&apos; style=&quot;color:#333;backgroud:#ededed&quot;&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>特有属性 </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- &lt;a href=&quot;链接地址&quot; target=&quot;链接打开的方式 &quot;&gt;点击链接&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="center">target属性值</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">_blank</td>
+<td align="center">在浏览器新窗口中打开被链接文档</td>
+</tr>
+<tr>
+<td align="center">_self</td>
+<td align="center">默认。在相反的框架中翻开被链接文档。阅读器从头载入彀页</td>
+</tr>
+<tr>
+<td align="center">_parent</td>
+<td align="center">在父框架斥逐打开被链接文档</td>
+</tr>
+<tr>
+<td align="center">_top</td>
+<td align="center">在整个窗口中掀开被链接文档</td>
+</tr>
+</tbody></table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- &lt;img src=&quot;图片的url&quot; alt=&quot;图片出错时显示的文本&quot; title=&quot;鼠标悬停时显示的文本&quot;&gt;&lt;/img&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>h5拓展属性 (常用)</p>
+</blockquote>
+<ul>
+<li>data-xxx   存储页面自定义的数据<br>例：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div data-nn=&apos;one&apos;&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="三、结构"><a href="#三、结构" class="headerlink" title="三、结构"></a>三、结构</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">doctype 	声明部分 </span><br><span class="line">html</span><br><span class="line">head         不会显示到浏览器视口中</span><br><span class="line">	title		显示在浏览器选项卡</span><br><span class="line">	meta 		用于设置元信息,配置</span><br><span class="line">		charset=utf-8 	</span><br><span class="line">		gbk</span><br><span class="line">		big5 	报社 	</span><br><span class="line">			环球新闻导报（php）</span><br><span class="line">		utf-8 </span><br><span class="line">			nihao 	汉语拼音</span><br><span class="line">			hello 	函数</span><br><span class="line">		编码</span><br><span class="line">			编辑器 UTF-8</span><br><span class="line">		解码</span><br><span class="line">			浏览器 </span><br><span class="line">body       网页主体</span><br></pre></td></tr></table></figure>
+
+<h3 id="四、标签"><a href="#四、标签" class="headerlink" title="四、标签"></a>四、标签</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt; 	        定义 HTML 文档</span><br><span class="line">&lt;body&gt; 	        定义文档的主体</span><br><span class="line">&lt;h1&gt; - &lt;h6&gt; 	定义 HTML 标题</span><br><span class="line">&lt;hr&gt; 	        定义水平线</span><br><span class="line">&lt;!--...--&gt; 	定义注释</span><br></pre></td></tr></table></figure>
+
+<h3 id="五、元素"><a href="#五、元素" class="headerlink" title="五、元素"></a>五、元素</h3><h4 id="1-块元素（box）"><a href="#1-块元素（box）" class="headerlink" title="1. 块元素（box）"></a>1. 块元素（box）</h4><blockquote>
+<p>  作用：作为页面框架，或者容器。是页面的主体<br>    特性：<br>        1) 独占一行空间<br>        2) 默认宽度为100%，默认高度由子元素或者内容决定<br>        3) 可以为其指定宽高 style=”width:;height:;” </p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">标签</th>
+<th align="center">描述</th>
+<th align="center">属性</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">html</td>
+<td align="center">定义HTML文档</td>
+<td align="center">margin</td>
+</tr>
+<tr>
+<td align="center">body</td>
+<td align="center">定义文档的主体</td>
+<td align="center">margin</td>
+</tr>
+<tr>
+<td align="center">div</td>
+<td align="center">无意义的块元素</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">h1~h6</td>
+<td align="center">定义HTML标题</td>
+<td align="center">font-size、font-weight、margin</td>
+</tr>
+<tr>
+<td align="center">p</td>
+<td align="center">段落</td>
+<td align="center">margin</td>
+</tr>
+<tr>
+<td align="center">hr</td>
+<td align="center">定义水平线</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">ul、li</td>
+<td align="center">无序列表，列表项</td>
+<td align="center">ul：margin、padding、list-style</td>
+</tr>
+<tr>
+<td align="center">ol、li</td>
+<td align="center">有序列表，列表项</td>
+<td align="center">ol：margin、padding、list-style</td>
+</tr>
+<tr>
+<td align="center">dl、dt、dd</td>
+<td align="center">有序列表</td>
+<td align="center">dl、dd：margin</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>H5新增：</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">标签</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">header</td>
+<td align="center">头</td>
+</tr>
+<tr>
+<td align="center">nav</td>
+<td align="center">定义导航链接</td>
+</tr>
+<tr>
+<td align="center">article</td>
+<td align="center">主体</td>
+</tr>
+<tr>
+<td align="center">section</td>
+<td align="center">部分</td>
+</tr>
+<tr>
+<td align="center">footer</td>
+<td align="center">脚</td>
+</tr>
+<tr>
+<td align="center">aside</td>
+<td align="center">侧边框</td>
+</tr>
+</tbody></table>
+<ul>
+<li><a href="https://www.cnblogs.com/nuanai/p/8856814.html" target="_blank" rel="noopener">使用详情可查看此文章</a></li>
+</ul>
+<h4 id="2-行内元素（label）"><a href="#2-行内元素（label）" class="headerlink" title="2. 行内元素（label）"></a>2. 行内元素（label）</h4><blockquote>
+<p>  作用：点缀网页，填充内容<br>    特性：<br>        1) 与其他行内元素共享一行空间<br>        2) 默认宽高由内容决定<br>        3) 不能为其指定宽和高<br>        4) 行内元素中不可以嵌套块元素，但块元素中可以嵌套行内元素</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">标签</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">span</td>
+<td align="center">无意义的行内元素</td>
+</tr>
+<tr>
+<td align="center">a</td>
+<td align="center">超链接</td>
+</tr>
+<tr>
+<td align="center">img</td>
+<td align="center">引入图片</td>
+</tr>
+<tr>
+<td align="center">strong</td>
+<td align="center">语气更强的强调的内容</td>
+</tr>
+<tr>
+<td align="center">blod、b</td>
+<td align="center">字体加粗</td>
+</tr>
+<tr>
+<td align="center">em</td>
+<td align="center">定义为强调的内容</td>
+</tr>
+<tr>
+<td align="center">i</td>
+<td align="center">斜体文本效果</td>
+</tr>
+<tr>
+<td align="center">sub</td>
+<td align="center">定义下标文本</td>
+</tr>
+<tr>
+<td align="center">sup</td>
+<td align="center">定义上标文本</td>
+</tr>
+<tr>
+<td align="center">del</td>
+<td align="center">定义文档中已被删除的文本</td>
+</tr>
+<tr>
+<td align="center">…</td>
+<td align="center">…</td>
+</tr>
+</tbody></table>
+<ul>
+<li><a href="https://www.jianshu.com/p/7a94dac8b012" target="_blank" rel="noopener">更多的可参考此文章</a></li>
+</ul>
+<p>a标签：默认样式:color、text-decoration、cursor 默认事件:点击事件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">普通的链接：&lt;a href=&quot;http://www.example.com/&quot;&gt;链接文本&lt;/a&gt;</span><br><span class="line">图像链接： &lt;a href=&quot;http://www.example.com/&quot;&gt;&lt;img src=&quot;URL&quot; alt=&quot;替换文本&quot;&gt;&lt;/a&gt;</span><br><span class="line">邮件链接： &lt;a href=&quot;mailto:webmaster@example.com&quot;&gt;发送e-mail&lt;/a&gt;</span><br><span class="line">书签：</span><br><span class="line">&lt;a id=&quot;tips&quot;&gt;提示部分&lt;/a&gt;</span><br><span class="line">&lt;a href=&quot;#tips&quot;&gt;跳到提示部分&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-功能元素-（也是行内元素）"><a href="#3-功能元素-（也是行内元素）" class="headerlink" title="3. 功能元素 （也是行内元素）"></a>3. 功能元素 （也是行内元素）</h4><ul>
+<li>1) 表格</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">table</span><br><span class="line">	【属性】border、width、、、、</span><br><span class="line">	caption 	表格标题</span><br><span class="line">	thead 		表头部分</span><br><span class="line">		tr </span><br><span class="line">			th/td</span><br><span class="line">	tbody 		表格主体部分【不可以省略】</span><br><span class="line">		tr</span><br><span class="line">			td/th</span><br><span class="line">			【属性】colspan、rowspan、width、align</span><br><span class="line">			td/th中可以放任意子元素</span><br><span class="line">	tfoot 		表底部分</span><br><span class="line">		tr</span><br><span class="line">			td</span><br><span class="line">【注意】：每一行中的列数应该是相等</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>2) 表单（前后台交互）</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">&lt;form action=&quot;&quot;&gt;</span><br><span class="line">	input</span><br><span class="line">	select</span><br><span class="line">	textarea</span><br><span class="line">&lt;/form&gt;</span><br><span class="line">form</span><br><span class="line">	action 	后台接口地址</span><br><span class="line">	method 	请求方式</span><br><span class="line">		get</span><br><span class="line">			参数拼接在url后面，通过?来分割</span><br><span class="line">			传递参数较少</span><br><span class="line">			查询学生信息、通过id删除学生信息、</span><br><span class="line">		post</span><br><span class="line">			参数存放在请求体中，安全</span><br><span class="line">			传递参数更多</span><br><span class="line">			保存或者更新学生信息、批量删除</span><br><span class="line">	enctype 编码方式</span><br><span class="line">		1. enctype=&apos;application/x-www-form-urlencoded&apos;</span><br><span class="line">			浏览器就会将参数转换为【查询字符串 qs】格式</span><br><span class="line">			username=charles&amp;password=123321&amp;nickname=李四&amp;emailcharles@briup.com</span><br><span class="line">		2. multipart/form-data</span><br><span class="line">			当有附件在表单中的时候，enctype务必设置为这种格式</span><br><span class="line">	ajax</span><br><span class="line">		查询字符串</span><br><span class="line">			username=charles&amp;password=123321&amp;nickname=李四&amp;emailcharles@briup.com</span><br><span class="line">		JSON</span><br><span class="line">			&apos;&#123;&quot;username&quot;:&quot;charles&quot;,&quot;password&quot;:&quot;123321&quot;&#125;&apos;</span><br><span class="line">	&lt;input name=&quot;&quot; value=&quot;&quot; type=&quot;&quot; palceholder=&quot;&quot; checked&gt;</span><br><span class="line">		name: 			不能省略，作为参数中的key</span><br><span class="line">		value: 			作为参数中的value,在按钮中务必指定value值</span><br><span class="line">		type:</span><br><span class="line">			text 		单行文本框</span><br><span class="line">			password 	密码框</span><br><span class="line">			submit 		提交按钮</span><br><span class="line">			reset       重置</span><br><span class="line">			hidden      隐藏</span><br><span class="line">			file 		附件选择器</span><br><span class="line">			radio 		单选按钮</span><br><span class="line">			checkbox 	复选按钮</span><br><span class="line">h5拓展(兼容性，功能)</span><br><span class="line">	email</span><br><span class="line">	date</span><br><span class="line">	number</span><br><span class="line">	...</span><br><span class="line">	progress</span><br><span class="line">	checked: 		单值属性	默认选址</span><br><span class="line">	placeholder             提示语</span><br><span class="line"></span><br><span class="line">    &lt;select name=&quot;&quot; id=&quot;&quot;&gt;</span><br><span class="line">            &lt;option value=&quot;&quot;&gt;&lt;/option&gt;</span><br><span class="line">	 option</span><br><span class="line">	 	 标签中的文本显示在网页中，提交的值应该是option的value值，当这个值没有设定的时候，提交的是标签中的文本</span><br><span class="line">		 &lt;option value=&quot;sx&quot;&gt;山西&lt;/option&gt; </span><br><span class="line">		 &lt;option&gt;山西&lt;/option&gt;</span><br><span class="line"></span><br><span class="line">    &lt;/select&gt;</span><br><span class="line">	&lt;textarea name=&quot;&quot; id=&quot;&quot; cols=&quot;30&quot; rows=&quot;10&quot; placeholder=&quot;提示语&quot;&gt;&lt;/textarea&gt;</span><br><span class="line">		多行文本域</span><br><span class="line">第三方库</span><br><span class="line">	日期插件</span><br><span class="line">	地址选择器地址</span><br><span class="line">	附件上传</span><br><span class="line">	富文本</span><br></pre></td></tr></table></figure>
+
+<h3 id="六、H5新特性"><a href="#六、H5新特性" class="headerlink" title="六、H5新特性"></a>六、H5新特性</h3><blockquote>
+<p>  1、用于绘画的 canvas 元素<br>    2、用于媒介回放的 video 和 audio 元素<br>    3、对本地离线存储的更好的支持<br>    4、新的特殊内容元素，比如 article、footer、header、nav、section<br>    5、新的表单控件，比如 calendar、date、time、email、url、search</p>
+</blockquote>
+</article><!-- lincense--><div class="license-wrapper"><p> <span>Author:  </span><a href="https://sucj0301.github.io">Jessa Su</a></p><p> <span>Link:  </span><a href="https://sucj0301.github.io/2019/07/20/html5/">https://sucj0301.github.io/2019/07/20/html5/</a></p><p> <span>Copyright:  </span><span>All articles in this blog are licensed under <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/3.0">CC BY-NC-SA 3.0</a> unless stating additionally.</span></p></div><div class="post-paginator"><a class="prevSlogan" href="/2019/08/12/css3-动画/" title="css-动画"><span>< PreviousPost</span><br><span class="prevTitle">css-动画</span></a><div class="clear"></div></div><div id="comment"></div></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io"><span>Hexo</span></a><span> | theme </span><a href="https://github.com/Longlongyu/hexo-theme-Cxo"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><div class="toc-wrapper" style="top: 70vh;"><div class="toc-catalog"><i class="fa fa-list"> </i><span>CATALOG</span></div><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、网页元素"><span class="toc-number">1.</span> <span class="toc-text">一、网页元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、属性"><span class="toc-number">2.</span> <span class="toc-text">二、属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、结构"><span class="toc-number">3.</span> <span class="toc-text">三、结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、标签"><span class="toc-number">4.</span> <span class="toc-text">四、标签</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#五、元素"><span class="toc-number">5.</span> <span class="toc-text">五、元素</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-块元素（box）"><span class="toc-number">5.1.</span> <span class="toc-text">1. 块元素（box）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-行内元素（label）"><span class="toc-number">5.2.</span> <span class="toc-text">2. 行内元素（label）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-功能元素-（也是行内元素）"><span class="toc-number">5.3.</span> <span class="toc-text">3. 功能元素 （也是行内元素）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#六、H5新特性"><span class="toc-number">6.</span> <span class="toc-text">六、H5新特性</span></a></li></ol></div><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
