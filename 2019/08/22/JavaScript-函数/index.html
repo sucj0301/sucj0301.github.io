@@ -1,0 +1,166 @@
+<!DOCTYPE html><html><head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="Jessa Su"><meta name="renderer" content="webkit"><meta name="copyright" content="Jessa Su"><meta name="keywords" content="小小苏的个人博客"><meta name="description" content="null"><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>JavaScript-函数(Function) · Jessa's Blog</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/favicon.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
+
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
+
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
+
+
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="/img/assets/null.jpg"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">Jessa Su</div><div class="friends"><div>FRIENDS</div><span><a href="//xcom1057136457.github.io" target="_black">Bentham</a></span></div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a>Jessa's Blog</a></div><div class="intro-nav-label-box"><a href="/">首页</a><a href="/archives/">文章</a><a href="/tags/">热门</a><a href="/about/">关于</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/">首页</a><a href="/archives/">文章</a><a href="/tags/">热门</a><a href="/about/">关于</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">JavaScript-函数(Function)</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-calendar"></i><span>2019-08-22</span></span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><h2 id="1-函数的用处"><a href="#1-函数的用处" class="headerlink" title="1.函数的用处"></a>1.函数的用处</h2><blockquote>
+<ol>
+<li>使用函数封装某些功能代码，执行特定功能<br> arr.sort()          排序<br> arr.reverse() 数组反转<br> jQuery()          调用jquery函数完成特定功能<br> …</li>
+</ol>
+</blockquote>
+<blockquote>
+<ol start="2">
+<li>使用函数封装创建对象的模板【构造函数】面向对象</li>
+</ol>
+</blockquote>
+<h2 id="2-函数的使用（功能）"><a href="#2-函数的使用（功能）" class="headerlink" title="2.函数的使用（功能）"></a>2.函数的使用（功能）</h2><blockquote>
+<p>1) 函数的定义</p>
+</blockquote>
+<ol>
+<li>函数声明</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function 函数名(形参) &#123;</span><br><span class="line">	函数体</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>函数表达式</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var 函数名 = function(形参)&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">sayHello();</span><br><span class="line">var sayHello = function()&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">console.log(a);</span><br><span class="line">var a = 3;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>2)函数的调用</p>
+</blockquote>
+<ol>
+<li>函数名(实参)</li>
+<li>函数名.call(this,实参列表);</li>
+<li>函数名.apply(this,实参数组);</li>
+</ol>
+<p><strong>注：函数声明会提升</strong><br>如果一个函数使用函数声明的方式来定义，那么在函数定义之前就可以调用该函数</p>
+<h2 id="3-函数的作用域"><a href="#3-函数的作用域" class="headerlink" title="3.函数的作用域"></a>3.函数的作用域</h2><p>  如果一个变量声明在函数中，那么这个变量只能在函数中访问，当函数执行完毕后，这个变量就会被释放掉。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">nodejs ECMAScript（var）</span><br><span class="line">	var不存在局部作用域</span><br><span class="line">	function foo()&#123;</span><br><span class="line">		if(true)&#123;</span><br><span class="line">			// 局部作用域，a只能在当前代码块生效</span><br><span class="line">			var a = 3;</span><br><span class="line">		&#125;</span><br><span class="line">		console.log(a);	</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>注：如果该代码运行在nodejs中，a访问不到，但是如果运行在浏览器中，a的值为3。</li>
+</ul>
+<h2 id="4-函数内部属性"><a href="#4-函数内部属性" class="headerlink" title="4.函数内部属性"></a>4.函数内部属性</h2><ul>
+<li>只能在函数运行的时候才能确定的属性，只能在函数内部访问。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function add(a,b)&#123;</span><br><span class="line">	var result = a + b;</span><br><span class="line">	return result;</span><br><span class="line">&#125;</span><br><span class="line">add(32,22,19);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>1) 形参</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">  function foo(形参1，形参2...) &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>2) arguments : 接受实参的真正所在，类数组对象</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">arguments:&#123;</span><br><span class="line">	0:32,</span><br><span class="line">	1:22,</span><br><span class="line">	2:10,</span><br><span class="line">	length:3</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>3) this : 当前对象（环境对象）</p>
+</blockquote>
+<p><strong>如何判断this的值为谁：</strong></p>
+<ul>
+<li>this的取值与该函数的调用方式有关<br>1) 如果函数使用”()”来调用，那看一下括号前面是不是函数名，如果是，看函数名前面有没有对象，如果有，this指向该对象，否则指向全局对象（window/global）<br>2) 如果通过call,apply来调用，this为用户手动指向的那么对象</li>
+</ul>
+<p><a href="https://blog.csdn.net/weixin_37722222/article/details/81625826" target="_blank" rel="noopener">详细可看此文章</a></p>
+<blockquote>
+<p>练习：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var p1 = &#123;</span><br><span class="line">	name:&quot;terry&quot;,</span><br><span class="line">	age:12,</span><br><span class="line">	sayName:foo</span><br><span class="line">&#125;</span><br><span class="line">var p2 = &#123;</span><br><span class="line">	name:&quot;larry&quot;,</span><br><span class="line">	age :12,</span><br><span class="line">	sayName:foo</span><br><span class="line">&#125;</span><br><span class="line">// 当执行p1.sayName()打印“hello my name is terry”，执行p2.sayName()打印“hello my name is larry”,foo函数如何定义</span><br><span class="line"></span><br><span class="line">function foo()&#123;</span><br><span class="line">	console.log(&quot;hello my name is &quot;+this.name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-值传递和引用传递"><a href="#5-值传递和引用传递" class="headerlink" title="5.值传递和引用传递"></a>5.值传递和引用传递</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var a = 3;</span><br><span class="line">var b = a; 		//b 为3		值拷贝</span><br><span class="line"></span><br><span class="line">b++</span><br><span class="line">console.log(a);</span><br><span class="line"></span><br><span class="line">var a = &#123;name:&quot;terry&quot;,age:12&#125;;</span><br><span class="line">var b = a;		// a为指针，b为指针 	引用拷贝</span><br><span class="line"></span><br><span class="line">b.age++;</span><br><span class="line">console.log(a.age);</span><br></pre></td></tr></table></figure></article><!-- lincense--><div class="license-wrapper"><p> <span>Author:  </span><a href="https://sucj0301.github.io">Jessa Su</a></p><p> <span>Link:  </span><a href="https://sucj0301.github.io/2019/08/22/JavaScript-函数/">https://sucj0301.github.io/2019/08/22/JavaScript-函数/</a></p><p> <span>Copyright:  </span><span>All articles in this blog are licensed under <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/3.0">CC BY-NC-SA 3.0</a> unless stating additionally.</span></p></div><div class="post-paginator"><a class="prevSlogan" href="/2019/08/23/JavaScript-数组/" title="JavaScript-数组"><span>< PreviousPost</span><br><span class="prevTitle">JavaScript-数组</span></a><a class="nextSlogan" href="/2019/08/21/JavaScript-对象/" title="JavaScript-对象"><span>NextPost ></span><br><span class="nextTitle">JavaScript-对象</span></a><div class="clear"></div></div><div id="comment"></div></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io"><span>Hexo</span></a><span> | theme </span><a href="https://github.com/Longlongyu/hexo-theme-Cxo"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><div class="toc-wrapper" style="top: 70vh;"><div class="toc-catalog"><i class="fa fa-list"> </i><span>CATALOG</span></div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-函数的用处"><span class="toc-number">1.</span> <span class="toc-text">1.函数的用处</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-函数的使用（功能）"><span class="toc-number">2.</span> <span class="toc-text">2.函数的使用（功能）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-函数的作用域"><span class="toc-number">3.</span> <span class="toc-text">3.函数的作用域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-函数内部属性"><span class="toc-number">4.</span> <span class="toc-text">4.函数内部属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-值传递和引用传递"><span class="toc-number">5.</span> <span class="toc-text">5.值传递和引用传递</span></a></li></ol></div><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>

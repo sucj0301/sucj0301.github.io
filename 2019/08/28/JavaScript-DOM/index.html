@@ -1,0 +1,174 @@
+<!DOCTYPE html><html><head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="Jessa Su"><meta name="renderer" content="webkit"><meta name="copyright" content="Jessa Su"><meta name="keywords" content="小小苏的个人博客"><meta name="description" content="null"><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>JavaScript-DOM · Jessa's Blog</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/favicon.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
+
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
+
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
+
+
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="/img/assets/null.jpg"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">Jessa Su</div><div class="friends"><div>FRIENDS</div><span><a href="//xcom1057136457.github.io" target="_black">Bentham</a></span></div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a>Jessa's Blog</a></div><div class="intro-nav-label-box"><a href="/">首页</a><a href="/archives/">文章</a><a href="/tags/">热门</a><a href="/about/">关于</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/">首页</a><a href="/archives/">文章</a><a href="/tags/">热门</a><a href="/about/">关于</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">JavaScript-DOM</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-calendar"></i><span>2019-08-28</span></span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><blockquote>
+<p><strong>DOM —— js操作html的api</strong></p>
+</blockquote>
+<h2 id="1-在html中添加js代码"><a href="#1-在html中添加js代码" class="headerlink" title="1. 在html中添加js代码"></a>1. 在html中添加js代码</h2><ul>
+<li>script标签内</li>
+</ul>
+<p><strong>示例：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=&quot;https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-第三方js库【操作html】"><a href="#2-第三方js库【操作html】" class="headerlink" title="2. 第三方js库【操作html】"></a>2. 第三方js库【操作html】</h2><p><img src="https://ftp.bmp.ovh/imgs/2019/11/5c534079e131c0a3.jpg" alt="dom树"></p>
+<h3 id="1-实例化（如何创建对象）"><a href="#1-实例化（如何创建对象）" class="headerlink" title="1) 实例化（如何创建对象）"></a>1) 实例化（如何创建对象）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var one = document.getElementById(&quot;one&quot;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-API-在线文档"><a href="#2-API-在线文档" class="headerlink" title="2) API(在线文档)"></a>2) API(在线文档)</h3><blockquote>
+<ol>
+<li>Node</li>
+</ol>
+</blockquote>
+<ul>
+<li>html中所有的内容都可以认为是节点，比如：doctype、html、head、注释、div内容”hello”、空格、回车都是节点</li>
+</ul>
+<p><strong>属性：</strong></p>
+<p>1) 获取节点基本信息的属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">nodeType 	</span><br><span class="line">	ELEMENT_NODE	1</span><br><span class="line">	TEXT_NODE			3</span><br><span class="line">	COMMENT_NODE	8	</span><br><span class="line">	DOCUMENT_NODE	9</span><br><span class="line">nodeName</span><br><span class="line">	document 	#document</span><br><span class="line">	文本 			#text</span><br><span class="line">	元素 			标签名大写 DIV</span><br><span class="line">nodeValue</span><br><span class="line">	文本，注释 	内容</span><br></pre></td></tr></table></figure>
+
+<p>2) 表示层次结构的属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">parentNode</span><br><span class="line">parentElement</span><br><span class="line">ownerDocument 	当前元素所在的文档对象</span><br><span class="line">childNodes</span><br><span class="line">firstChild</span><br><span class="line">lastChild</span><br><span class="line">nextSibling</span><br><span class="line">previousSibling</span><br></pre></td></tr></table></figure>
+
+<p><strong>方法：</strong></p>
+<p>1) 父节点调用的方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">appendChild()</span><br><span class="line">insertBefore(new,reference)</span><br><span class="line">replaceChild(new,old)</span><br><span class="line">removeChild()</span><br></pre></td></tr></table></figure>
+
+<p>2) 其他</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cloneNode([boolean])  //如果参数为true,表示深克隆</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ol start="2">
+<li>Document</li>
+</ol>
+</blockquote>
+<ul>
+<li>文档，表示整个html文档或者xml文档，一般情况下一个html可以使用一个Document的实例来表示，即document</li>
+</ul>
+<p><strong>属性:</strong>body 、 head 、 title</p>
+<p><strong>方法：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">getElementById()</span><br><span class="line">getElementsByClassName();</span><br><span class="line">getElementsByTagName()</span><br><span class="line">getElementsByName()</span><br><span class="line"></span><br><span class="line">querySelector(选择器)</span><br><span class="line">querySelectorAll(选择器)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ol start="3">
+<li>Element</li>
+</ol>
+</blockquote>
+<ul>
+<li>元素，html文档中的所有的元素都可以映射为一个Element实例 （body/div/p/span/table/form…）</li>
+</ul>
+<p><strong>属性：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1) 元素属性相关的属性 : id 、className</span><br><span class="line"></span><br><span class="line">	自有属性         ： name 、 href 、 src 、 alt 、 target ...</span><br><span class="line"></span><br><span class="line">	自定义属性       :</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">2) 元素层次结构相关属性</span><br><span class="line">	children</span><br><span class="line">	firstElementChild</span><br><span class="line">	lastElementChild</span><br><span class="line">	nextElementSibling</span><br><span class="line">	previousElementSibling</span><br><span class="line"></span><br><span class="line">	innerHTML  // 获取或设置一个元素内的html内容</span><br><span class="line">	innerText  // 获取或设置一个元素内的文本内容</span><br></pre></td></tr></table></figure>
+
+<p><strong>方法:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">属性相关:</span><br><span class="line">getAttribute(key)</span><br><span class="line">setAttribute(key,val)</span><br><span class="line">querySelector(选择器)</span><br><span class="line">querySelectorAll(选择器)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ol start="4">
+<li>Text</li>
+</ol>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">文本内容,如下&quot;hello world&quot;表示文本内容</span><br><span class="line">&lt;div&gt;hello world&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ol start="5">
+<li>Comment</li>
+</ol>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 注释内容 --&gt;</span><br></pre></td></tr></table></figure></article><!-- lincense--><div class="license-wrapper"><p> <span>Author:  </span><a href="https://sucj0301.github.io">Jessa Su</a></p><p> <span>Link:  </span><a href="https://sucj0301.github.io/2019/08/28/JavaScript-DOM/">https://sucj0301.github.io/2019/08/28/JavaScript-DOM/</a></p><p> <span>Copyright:  </span><span>All articles in this blog are licensed under <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/3.0">CC BY-NC-SA 3.0</a> unless stating additionally.</span></p></div><div class="post-paginator"><a class="prevSlogan" href="/2019/08/30/Ajax/" title="Ajax"><span>< PreviousPost</span><br><span class="prevTitle">Ajax</span></a><a class="nextSlogan" href="/2019/08/27/JavaScript-事件/" title="JavaScript-事件"><span>NextPost ></span><br><span class="nextTitle">JavaScript-事件</span></a><div class="clear"></div></div><div id="comment"></div></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io"><span>Hexo</span></a><span> | theme </span><a href="https://github.com/Longlongyu/hexo-theme-Cxo"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><div class="toc-wrapper" style="top: 70vh;"><div class="toc-catalog"><i class="fa fa-list"> </i><span>CATALOG</span></div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-在html中添加js代码"><span class="toc-number">1.</span> <span class="toc-text">1. 在html中添加js代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-第三方js库【操作html】"><span class="toc-number">2.</span> <span class="toc-text">2. 第三方js库【操作html】</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-实例化（如何创建对象）"><span class="toc-number">2.1.</span> <span class="toc-text">1) 实例化（如何创建对象）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-API-在线文档"><span class="toc-number">2.2.</span> <span class="toc-text">2) API(在线文档)</span></a></li></ol></li></ol></div><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
