@@ -1,0 +1,225 @@
+<!DOCTYPE html><html><head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="Jessa Su"><meta name="renderer" content="webkit"><meta name="copyright" content="Jessa Su"><meta name="keywords" content="小小苏的个人博客"><meta name="description" content="null"><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>Jessa's Blog</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/favicon.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
+
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
+
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
+
+
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="/img/assets/null.jpg"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">Jessa Su</div><div class="friends"><div>FRIENDS</div><span><a href="//xcom1057136457.github.io" target="_black">Bentham</a></span></div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a>Jessa's Blog</a></div><div class="intro-nav-label-box"><a href="/">首页</a><a href="/archives/">文章</a><a href="/tags/">热门</a><a href="/about/">关于</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/">首页</a><a href="/archives/">文章</a><a href="/tags/">热门</a><a href="/about/">关于</a></div></i><div class="clear"></div></section></nav><h1>Jessa's Blog</h1><h5>逆水行舟，不进则退！</h5><div class="intro-social"><a class="fa fa-envelope" href="mailto://sucj1018@163.com" title="email"></a><a class="fa fa-github" href="//github.com/sucj0301" target="_blank" title="github"></a><a class="fa fa-weibo" href="//weibo.com/u/5221662682" target="_blank" title="weibo"></a></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><section id="recent-posts"><div class="recent-post-item"><div class="post-title"><a href="/2020/01/02/VUE-emit的用法/">'VUE--$emit的用法'</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2020-01-02T08:52:17.000Z">2020-01-02</time></div><div class="recent-post-content"></div><div class="read-more"><a class="more" href="/2020/01/02/VUE-emit的用法/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2020/01/02/写项目时发现的一些方法，很实用/">写vue项目时用过的方法和函数</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2020-01-02T04:00:40.000Z">2020-01-02</time></div><div class="recent-post-content">一、lodash里面的一些常用方法前提
+
+安装lodash
+
+1npm i lodash -S
+
+
+引入lodash(建议按需引入)
+
+123456789// 1.全局引入  -&gt;在main.js文件中：import _ from &apos;lodash&apos;Vue.prototype._ = _// 2.单个页面引入let _ = require(&apos;lodash&apos;) 或 import _ from &apos;lodash&apos;// 2.引入单个函数，比如要引入trim这个函数let _trim = require(&apos;lodash/trim& ...</div><div class="read-more"><a class="more" href="/2020/01/02/写项目时发现的一些方法，很实用/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2019/12/30/vue实现复制文本功能/">vue实现复制文本功能</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-12-30T08:06:01.000Z">2019-12-30</time></div><div class="recent-post-content">问题：写vue项目时想要个快速复制某个数据用的插件：vue-clipboard2
+
+第一步：在项目中导入
+
+1npm install --save vue-clipboard2
+
+
+第二步：在main.js中引入
+
+12import VueClipboard from &apos;vue-clipboard2&apos;Vue.use(VueClipboard)
+
+
+第三步：在vue文件中使用
+
+123456789101112&lt;el-table-column   class-name=&quot;status-col&quot;   label=&quot;uuid&quot;   al ...</div><div class="read-more"><a class="more" href="/2019/12/30/vue实现复制文本功能/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2019/12/30/防止浏览器自动填写用户名和密码/">防止浏览器自动填写用户名和密码</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-12-30T03:57:31.000Z">2019-12-30</time></div><div class="recent-post-content">问题：退出登录后用户名和密码还是在input框里**
+autocomplete属性是HTML5的新属性，在input中autocomplete属性是默认开启的。
+
+
+定义：autocomplete属性规范表单是否启用自动完成功能。自动完成允许浏览器对字段的输入，是基于之前输入过的值。
+
+应用范围：autocomplete适用form，以及input类型的text、search、url、telephone、email、password、datepickers、range、color
+
+属性值：on—-默认，启动自动完成
+off—–禁用自动完成
+
+
+扩展：禁止浏览器表单自动填充
+普通文本框添加 a ...</div><div class="read-more"><a class="more" href="/2019/12/30/防止浏览器自动填写用户名和密码/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2019/08/30/Ajax/">Ajax</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-08-30T14:05:49.000Z">2019-08-30</time></div><div class="recent-post-content">1.介绍 异步的javascript和xml;用于浏览器和后台服务进行异步交互（传递信息）
+2. 特点 不会导致页面的全局刷新就可以进行与后台的交互;交互需要在”查看元素 -&gt; 网络”中监控
+3. 使用方式核心对象：XMLHttpRequest
+12345678910111213141. 实例化	var xhr = new XMLHttpRequest();2. 设置请求	xhr.open(method,url);	3. 设置头信息	xhr.setRequestHeader()4. 设置体信息（method为post时候）	xhr.send(data);5. 设置监听	xhr.onrea ...</div><div class="read-more"><a class="more" href="/2019/08/30/Ajax/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2019/08/28/JavaScript-DOM/">JavaScript-DOM</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-08-28T00:43:30.000Z">2019-08-28</time></div><div class="recent-post-content">
+DOM —— js操作html的api
+
+1. 在html中添加js代码
+script标签内
+
+示例：
+1&lt;script src=&quot;https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js&quot;&gt;&lt;/script&gt;
+
+2. 第三方js库【操作html】
+1) 实例化（如何创建对象）1var one = document.getElementById(&quot;one&quot;);
+
+2) API(在线文档)
+
+Node
+
+
+
+html中所有的内容都可以认为是节点，比如：doctype、html、head、 ...</div><div class="read-more"><a class="more" href="/2019/08/28/JavaScript-DOM/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2019/08/27/JavaScript-事件/">JavaScript-事件</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-08-27T13:03:51.000Z">2019-08-27</time></div><div class="recent-post-content">1. 介绍
+
+获取事件源
+
+
+
+
+为事件源绑定事件处理函数
+
+
+
+事件类型：click 、focus 、blur 、submit 、mouseover 、mouseout 、…
+
+
+事件处理函数： 当绑定的事件类型被触发的时候该函数执行
+
+
+
+从事件对象中获取事件详细信息
+
+
+
+当事件处理函数执行的时候，dom会将事件对象传递给事件处理函数
+
+2. 事件流
+前提条件：元素嵌套；每层元素上绑定事件
+
+1234567&lt;div class=&quot;outer&quot;&gt;	&lt;div class=&quot;center&quot;&gt;		&lt;div class=&quo ...</div><div class="read-more"><a class="more" href="/2019/08/27/JavaScript-事件/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2019/08/26/JavaScript-包装器/">JavaScript-包装器</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-08-26T09:25:49.000Z">2019-08-26</time></div><div class="recent-post-content">包装器类型
+Number 、 Boolean 、 String
+
+StringString.prototype.xxx
+
+length : 获取字符串中字数的数量
+
+
+charAt(index) : 获取指定索引处的字符
+
+
+charCodeAt(index) : 获取指定索引处的字符编码
+
+
+indexOf() : 获取指定字符在字符串中索引
+
+
+lastIndexOf() : 获取指定字符在字符串中的索引，【从后往前】
+
+
+concat() : 连接两个字符串
+
+
+slice(begin,end) : 截取子字符串，begin开始位置，end结束位置，不包含结束位置
+
+
+substring ...</div><div class="read-more"><a class="more" href="/2019/08/26/JavaScript-包装器/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2019/08/25/JavaScript-流程控制语句/">JavaScript-流程控制语句</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-08-25T06:53:27.000Z">2019-08-25</time></div><div class="recent-post-content">1. 条件语句1) 分支语句123456789if (条件) &#123;	// 条件为真时执行的代码&#125;if (条件) &#123;	// 条件为真时执行的语句&#125; else &#123;	条件为假时执行的语句&#125;
+
+示例
+123if(w == &apos;下雨&apos;)&#123;	console.log(&quot;带伞出门&quot;);&#125;
+
+12345if(age &gt; 18)&#123;	console.log(&quot;成年人&quot;);&#125; else &#123;	console.log(&quot;未成年人&quot;) ...</div><div class="read-more"><a class="more" href="/2019/08/25/JavaScript-流程控制语句/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2019/08/24/JavaScript-运算符/">JavaScript-运算符</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-08-24T03:23:45.000Z">2019-08-24</time></div><div class="recent-post-content">1) 算术操作符12345+ 		+= - 		-=*		*=/		/=%		%=
+
+2) 赋值操作符12345var result = 1 + 2;result += 3;==等价于==&gt; result = result + 3;
+
+
+将1+2这个表达式的运算结果赋值给result
+
+3) 一元运算符
+   ++     自增    –     自减        前置：先自增、减再参与其他运算        后置：先参与其他运算，再自增、自减
+
+1234567var a = 3;var b = 1;var result = ++a+b++;++a;	//	a = 4;a+b 	//  ...</div><div class="read-more"><a class="more" href="/2019/08/24/JavaScript-运算符/#more">ReadMore</a></div><hr></div></section><nav class="cxo-page-nav"><a class="extend prev" rel="prev" href="/page/2/">&#60; PREV</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">NEXT &#62;</a></nav></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io"><span>Hexo</span></a><span> | theme </span><a href="https://github.com/Longlongyu/hexo-theme-Cxo"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
