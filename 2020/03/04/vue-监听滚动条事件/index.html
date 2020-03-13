@@ -1,0 +1,134 @@
+<!DOCTYPE html><html><head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="Jessa Su"><meta name="renderer" content="webkit"><meta name="copyright" content="Jessa Su"><meta name="keywords" content="小小苏的个人博客"><meta name="description" content="null"><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>vue-监听滚动条事件 · Jessa's Blog</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/favicon.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
+
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
+
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
+
+
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="/img/assets/null.jpg"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">Jessa Su</div><div class="friends"><div>FRIENDS</div><span><a href="//xcom1057136457.github.io" target="_black">Bentham</a></span></div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a>Jessa's Blog</a></div><div class="intro-nav-label-box"><a href="/">首页</a><a href="/archives/">文章</a><a href="/tags/">热门</a><a href="/about/">关于</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/">首页</a><a href="/archives/">文章</a><a href="/tags/">热门</a><a href="/about/">关于</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">vue-监听滚动条事件</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-calendar"></i><span>2020-03-04</span></span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><h3 id="vue-实时监听滚动条事件"><a href="#vue-实时监听滚动条事件" class="headerlink" title="vue-实时监听滚动条事件"></a>vue-实时监听滚动条事件</h3><blockquote>
+<p>业务需求：点击课程列表中某一课程查看详情，返回的时候应该显示的是课程列表最后的状态，也就是要记录在切换页面前滚动条的最后位置。</p>
+</blockquote>
+<ol>
+<li>页面组件classCenter里：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;classList&quot; ref=&quot;scroll&quot;&gt;</span><br><span class="line">&lt;ul v-for=&quot;item in classList&quot; @click=&quot;handleToDetails&quot;&gt;</span><br><span class="line">  &lt;li class=&quot;name&quot;&gt;&#123;&#123;item.name&#125;&#125;&lt;/li&gt;</span><br><span class="line">  &lt;li class=&quot;time&quot;&gt;时间:&#123;&#123;item.time&#125;&#125;&lt;/li&gt;</span><br><span class="line">  &lt;li class=&quot;period&quot;&gt;课时:&#123;&#123;item.period&#125;&#125;&lt;/li&gt;</span><br><span class="line">  &lt;li class=&quot;price&quot;&gt;￥&#123;&#123;item.price&#125;&#125;元&lt;/li&gt;</span><br><span class="line">  &lt;Icon type=&quot;ios-arrow-forward&quot; size=&quot;20&quot;/&gt;</span><br><span class="line">&lt;/ul&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>我把滚动条高度放到vuex状态机里：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">state: &#123;</span><br><span class="line">    class_list_top: 0</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>App.vue</li>
+</ol>
+<ul>
+<li>把要实现需求的页面缓存下来 <a href="https://cn.vuejs.org/v2/api/#keep-alive" target="_blank" rel="noopener">keep-alive使用方法</a></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;keep-alive :include=&quot;[&apos;Home&apos;,&apos;classCenter&apos;]&quot;&gt;</span><br><span class="line">      &lt;router-view /&gt;</span><br><span class="line">&lt;/keep-alive&gt;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>script里：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"> activated () &#123;</span><br><span class="line"> 	&lt;!-- 绑定scroll事件 --&gt;</span><br><span class="line">     this.$refs.scroll.addEventListener(&quot;scroll&quot;,this.handleGetScrollTop);</span><br><span class="line"></span><br><span class="line">   &lt;!-- 让dom元素的滚动条高度为记录到vuex的该元素最后的滚动条高度 --&gt;</span><br><span class="line">     this.$refs.scroll.scrollTop = this.$store.state.class_list_top;</span><br><span class="line">   &#125;,</span><br><span class="line"></span><br><span class="line">   deactivated () &#123;</span><br><span class="line">   &lt;!-- 移除scroll事件 --&gt;</span><br><span class="line">     this.$refs.scroll.removeEventListener(&quot;scroll&quot;,this.handleGetScrollTop);</span><br><span class="line">   &#125;,</span><br><span class="line"></span><br><span class="line">   methods: &#123;</span><br><span class="line">   &lt;!-- 获取classList滚动条高度 --&gt;</span><br><span class="line">     handleGetScrollTop(e) &#123;</span><br><span class="line">       this.$store.state.class_list_top = e.target.scrollTop;</span><br><span class="line">     &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意:</strong></p>
+<blockquote>
+<p>① activated、deactivated是必须配合keep-alive使用的<br>② removeEventListener移除的事件必须和addEventListener一致（参数也要一致）；且通过addEventListener()添加的匿名函数无法移除。</p>
+</blockquote>
+<p><a href="https://cn.vuejs.org/v2/api/#activated" target="_blank" rel="noopener">activated、deactivated使用参考此文档</a></p>
+<ul>
+<li>本文参考：<a href="https://segmentfault.com/a/1190000012857661" target="_blank" rel="noopener">https://segmentfault.com/a/1190000012857661</a></li>
+</ul>
+</article><!-- lincense--><div class="license-wrapper"><p> <span>Author:  </span><a href="https://sucj0301.github.io">Jessa Su</a></p><p> <span>Link:  </span><a href="https://sucj0301.github.io/2020/03/04/vue-监听滚动条事件/">https://sucj0301.github.io/2020/03/04/vue-监听滚动条事件/</a></p><p> <span>Copyright:  </span><span>All articles in this blog are licensed under <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/3.0">CC BY-NC-SA 3.0</a> unless stating additionally.</span></p></div><div class="post-paginator"><a class="prevSlogan" href="/2020/03/06/如何在手机上预览vue项目/" title="如何在手机上预览vue项目"><span>< PreviousPost</span><br><span class="prevTitle">如何在手机上预览vue项目</span></a><a class="nextSlogan" href="/2020/03/02/vue监听路由变化/" title="vue监听路由变化"><span>NextPost ></span><br><span class="nextTitle">vue监听路由变化</span></a><div class="clear"></div></div><div id="comment"></div></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io"><span>Hexo</span></a><span> | theme </span><a href="https://github.com/Longlongyu/hexo-theme-Cxo"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><div class="toc-wrapper" style="top: 70vh;"><div class="toc-catalog"><i class="fa fa-list"> </i><span>CATALOG</span></div><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#vue-实时监听滚动条事件"><span class="toc-number">1.</span> <span class="toc-text">vue-实时监听滚动条事件</span></a></li></ol></div><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
