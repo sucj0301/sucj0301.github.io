@@ -1,0 +1,115 @@
+<!DOCTYPE html><html><head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="Jessa Su"><meta name="renderer" content="webkit"><meta name="copyright" content="Jessa Su"><meta name="keywords" content="小小苏的个人博客"><meta name="description" content="null"><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>Jessa's Blog</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/favicon.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
+
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
+
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
+
+
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="/img/assets/null.jpg"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">Jessa Su</div><div class="friends"><div>FRIENDS</div><span><a href="//xcom1057136457.github.io" target="_black">Bentham</a></span></div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a>Jessa's Blog</a></div><div class="intro-nav-label-box"><a href="/">首页</a><a href="/archives/">文章</a><a href="/tags/">热门</a><a href="/about/">关于</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/">首页</a><a href="/archives/">文章</a><a href="/tags/">热门</a><a href="/about/">关于</a></div></i><div class="clear"></div></section></nav><h1>Jessa's Blog</h1><h5>逆水行舟，不进则退！</h5><div class="intro-social"><a class="fa fa-envelope" href="mailto://sucj1018@163.com" title="email"></a><a class="fa fa-github" href="//github.com/sucj0301" target="_blank" title="github"></a><a class="fa fa-weibo" href="//weibo.com/u/5221662682" target="_blank" title="weibo"></a></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><section id="recent-posts"><div class="recent-post-item"><div class="post-title"><a href="/2019/08/03/css3-规则/">css3--规则</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-08-03T12:13:33.000Z">2019-08-03</time></div><div class="recent-post-content">1.字体样式（可以被继承）12345font-family:&quot;微软雅黑&quot;,&quot;Microsoft YaHei&quot;,&quot;宋体&quot;,serif;font-size:12px;		字体大小(浏览器默认字体为16px)font-weight:bold/normal/bolder/100~900; 字体粗细font-style:normal/italic;	是否开启斜体line-height:2em; 行高【文本垂直居中】
+
+
+速写：font:style weight size/line-height family;  例如：italic bold 1 ...</div><div class="read-more"><a class="more" href="/2019/08/03/css3-规则/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2019/07/30/css3-选择器/">css3-选择器</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-07-30T11:05:34.000Z">2019-07-30</time></div><div class="recent-post-content">如何在html中应用css
+1) 在元素中添加style属性，style属性值为css样式规则     缺点:样式与结构与杂糅     优点:简单直接，优先级高&lt;div style=&quot;width:100px;height:100px;&quot;&gt;&lt;/div&gt;2) 将样式添加到head标签中的style标签里&lt;style&gt;    &lt;/style&gt;3) 将样式定义在css文件中，通过link导入进来 &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&qu ...</div><div class="read-more"><a class="more" href="/2019/07/30/css3-选择器/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2019/07/20/html5/">html5</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-07-20T10:47:40.000Z">2019-07-20</time></div><div class="recent-post-content">一、网页元素1234&lt;p&gt;内容&lt;/p&gt;                     段落标签&lt;a href=&quot;&quot;&gt;这是一个链接&lt;/a&gt;      a标签，定义链接&lt;hr&gt;                            换行.....
+
+二、属性
+在开始标签中可以添加属性
+
+  
+  注：属性名不区分大小写
+
+12&lt;div id=&quot;one&quot;&gt;&lt;/div&gt;&lt;div ID=&quot;one&quot;&gt;&lt;/div&gt;
+
+
+核心属性（绝大多数标签都可以 ...</div><div class="read-more"><a class="more" href="/2019/07/20/html5/#more">ReadMore</a></div><hr></div></section><nav class="cxo-page-nav"><a class="extend prev" rel="prev" href="/page/6/">&#60; PREV</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span></nav></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io"><span>Hexo</span></a><span> | theme </span><a href="https://github.com/Longlongyu/hexo-theme-Cxo"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
