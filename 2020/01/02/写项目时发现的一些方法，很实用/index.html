@@ -124,6 +124,10 @@
 <ul>
 <li><a href="https://segmentfault.com/a/1190000015605531" target="_blank" rel="noopener">具体实现方法可参考这篇文章:https://segmentfault.com/a/1190000015605531</a></li>
 </ul>
+<blockquote>
+<p>_.includes(collection, value, [fromIndex=0])</p>
+</blockquote>
+<p><a href="https://www.lodashjs.com/docs/latest#_includescollection-value-fromindex0" target="_blank" rel="noopener">文档在此</a></p>
 <h3 id="二、ES6中的常用方法"><a href="#二、ES6中的常用方法" class="headerlink" title="二、ES6中的常用方法"></a>二、ES6中的常用方法</h3><ol>
 <li>Object.assign()</li>
 </ol>
@@ -144,7 +148,37 @@
 <ul>
 <li><a href="https://www.jb51.net/article/181750.htm" target="_blank" rel="noopener">https://www.jb51.net/article/181750.htm</a></li>
 </ul>
+<p>4.Object.defineProperty()</p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty" target="_blank" rel="noopener">参考</a></li>
+</ul>
 <h3 id="二、JS中的常用方法"><a href="#二、JS中的常用方法" class="headerlink" title="二、JS中的常用方法"></a>二、JS中的常用方法</h3><ol>
-<li>find()</li>
+<li>find()和findIndex()</li>
 </ol>
+<p>find()函数用来查找目标元素，找到就返回该元素，找不到返回undefined。<br>findIndex()函数也是查找目标元素，找到就返回元素的位置，找不到就返回-1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[1, 2, 3, 4].find((value, index, arr) =&gt; &#123;</span><br><span class="line">  </span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>其中：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">类型</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">value</td>
+<td align="left">每一次迭代查找的数组元素。</td>
+</tr>
+<tr>
+<td align="center">index</td>
+<td align="left">每一次迭代查找的数组元素索引。</td>
+</tr>
+<tr>
+<td align="center">arr</td>
+<td align="left">被查找的数组。</td>
+</tr>
+</tbody></table>
 </article><!-- lincense--><div class="license-wrapper"><p> <span>Author:  </span><a href="https://sucj0301.github.io">Jessa Su</a></p><p> <span>Link:  </span><a href="https://sucj0301.github.io/2020/01/02/写项目时发现的一些方法，很实用/">https://sucj0301.github.io/2020/01/02/写项目时发现的一些方法，很实用/</a></p><p> <span>Copyright:  </span><span>All articles in this blog are licensed under <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/3.0">CC BY-NC-SA 3.0</a> unless stating additionally.</span></p></div><div class="post-paginator"><a class="prevSlogan" href="/2020/01/02/VUE-emit的用法/" title="'VUE--$emit的用法'"><span>< PreviousPost</span><br><span class="prevTitle">'VUE--$emit的用法'</span></a><a class="nextSlogan" href="/2019/12/30/vue实现复制文本功能/" title="vue实现复制文本功能"><span>NextPost ></span><br><span class="nextTitle">vue实现复制文本功能</span></a><div class="clear"></div></div><div id="comment"></div></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io"><span>Hexo</span></a><span> | theme </span><a href="https://github.com/Longlongyu/hexo-theme-Cxo"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><div class="toc-wrapper" style="top: 70vh;"><div class="toc-catalog"><i class="fa fa-list"> </i><span>CATALOG</span></div><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、lodash里面的一些常用方法"><span class="toc-number">1.</span> <span class="toc-text">一、lodash里面的一些常用方法</span></a></li></ol><li class="toc-item toc-level-1"><a class="toc-link" href="#根据-object对象的path路径获取值。-如果解析-value-是-undefined-会以-defaultValue-取代。"><span class="toc-number"></span> <span class="toc-text">根据 object对象的path路径获取值。 如果解析 value 是 undefined 会以 defaultValue 取代。</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#二、ES6中的常用方法"><span class="toc-number">1.</span> <span class="toc-text">二、ES6中的常用方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、JS中的常用方法"><span class="toc-number">2.</span> <span class="toc-text">二、JS中的常用方法</span></a></li></ol></li></div><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>

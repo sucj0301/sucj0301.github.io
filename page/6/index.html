@@ -97,7 +97,91 @@
   }
 }( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="/img/assets/null.jpg"></div><!--.profile-saying
   i.fa.fa-comment
-  .saying--><div class="cxo-profile-inner"><div class="profile-name">Jessa Su</div><div class="friends"><div>FRIENDS</div><span><a href="//xcom1057136457.github.io" target="_black">Bentham</a></span></div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a>Jessa's Blog</a></div><div class="intro-nav-label-box"><a href="/">首页</a><a href="/archives/">文章</a><a href="/tags/">热门</a><a href="/about/">关于</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/">首页</a><a href="/archives/">文章</a><a href="/tags/">热门</a><a href="/about/">关于</a></div></i><div class="clear"></div></section></nav><h1>Jessa's Blog</h1><h5>逆水行舟，不进则退！</h5><div class="intro-social"><a class="fa fa-envelope" href="mailto://sucj1018@163.com" title="email"></a><a class="fa fa-github" href="//github.com/sucj0301" target="_blank" title="github"></a><a class="fa fa-weibo" href="//weibo.com/u/5221662682" target="_blank" title="weibo"></a></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><section id="recent-posts"><div class="recent-post-item"><div class="post-title"><a href="/2019/08/26/JavaScript-包装器/">JavaScript-包装器</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-08-26T09:25:49.000Z">2019-08-26</time></div><div class="recent-post-content">包装器类型
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">Jessa Su</div><div class="friends"><div>FRIENDS</div><span><a href="//xcom1057136457.github.io" target="_black">Bentham</a></span></div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a>Jessa's Blog</a></div><div class="intro-nav-label-box"><a href="/">首页</a><a href="/archives/">文章</a><a href="/tags/">热门</a><a href="/about/">关于</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/">首页</a><a href="/archives/">文章</a><a href="/tags/">热门</a><a href="/about/">关于</a></div></i><div class="clear"></div></section></nav><h1>Jessa's Blog</h1><h5>逆水行舟，不进则退！</h5><div class="intro-social"><a class="fa fa-envelope" href="mailto://sucj1018@163.com" title="email"></a><a class="fa fa-github" href="//github.com/sucj0301" target="_blank" title="github"></a><a class="fa fa-weibo" href="//weibo.com/u/5221662682" target="_blank" title="weibo"></a></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><section id="recent-posts"><div class="recent-post-item"><div class="post-title"><a href="/2020/01/02/写项目时发现的一些方法，很实用/">写vue项目时用过的方法和函数</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2020-01-02T04:00:40.000Z">2020-01-02</time></div><div class="recent-post-content">一、lodash里面的一些常用方法前提
+
+安装lodash
+
+1npm i lodash -S
+
+
+引入lodash(建议按需引入)
+
+123456789// 1.全局引入  -&gt;在main.js文件中：import _ from &apos;lodash&apos;Vue.prototype._ = _// 2.单个页面引入let _ = require(&apos;lodash&apos;) 或 import _ from &apos;lodash&apos;// 2.引入单个函数，比如要引入trim这个函数let _trim = require(&apos;lodash/trim& ...</div><div class="read-more"><a class="more" href="/2020/01/02/写项目时发现的一些方法，很实用/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2019/12/30/vue实现复制文本功能/">vue实现复制文本功能</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-12-30T08:06:01.000Z">2019-12-30</time></div><div class="recent-post-content">问题：写vue项目时想要个快速复制某个数据用的插件：vue-clipboard2
+
+第一步：在项目中导入
+
+1npm install --save vue-clipboard2
+
+
+第二步：在main.js中引入
+
+12import VueClipboard from &apos;vue-clipboard2&apos;Vue.use(VueClipboard)
+
+
+第三步：在vue文件中使用
+
+123456789101112&lt;el-table-column   class-name=&quot;status-col&quot;   label=&quot;uuid&quot;   al ...</div><div class="read-more"><a class="more" href="/2019/12/30/vue实现复制文本功能/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2019/12/30/防止浏览器自动填写用户名和密码/">防止浏览器自动填写用户名和密码</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-12-30T03:57:31.000Z">2019-12-30</time></div><div class="recent-post-content">问题：退出登录后用户名和密码还是在input框里**
+autocomplete属性是HTML5的新属性，在input中autocomplete属性是默认开启的。
+
+
+定义：autocomplete属性规范表单是否启用自动完成功能。自动完成允许浏览器对字段的输入，是基于之前输入过的值。
+
+应用范围：autocomplete适用form，以及input类型的text、search、url、telephone、email、password、datepickers、range、color
+
+属性值：on—-默认，启动自动完成
+off—–禁用自动完成
+
+
+扩展：禁止浏览器表单自动填充
+普通文本框添加 a ...</div><div class="read-more"><a class="more" href="/2019/12/30/防止浏览器自动填写用户名和密码/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2019/08/30/Ajax/">Ajax</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-08-30T14:05:49.000Z">2019-08-30</time></div><div class="recent-post-content">1.介绍 异步的javascript和xml;用于浏览器和后台服务进行异步交互（传递信息）
+2. 特点 不会导致页面的全局刷新就可以进行与后台的交互;交互需要在”查看元素 -&gt; 网络”中监控
+3. 使用方式核心对象：XMLHttpRequest
+12345678910111213141. 实例化	var xhr = new XMLHttpRequest();2. 设置请求	xhr.open(method,url);	3. 设置头信息	xhr.setRequestHeader()4. 设置体信息（method为post时候）	xhr.send(data);5. 设置监听	xhr.onrea ...</div><div class="read-more"><a class="more" href="/2019/08/30/Ajax/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2019/08/28/JavaScript-DOM/">JavaScript-DOM</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-08-28T00:43:30.000Z">2019-08-28</time></div><div class="recent-post-content">
+DOM —— js操作html的api
+
+1. 在html中添加js代码
+script标签内
+
+示例：
+1&lt;script src=&quot;https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js&quot;&gt;&lt;/script&gt;
+
+2. 第三方js库【操作html】
+1) 实例化（如何创建对象）1var one = document.getElementById(&quot;one&quot;);
+
+2) API(在线文档)
+
+Node
+
+
+
+html中所有的内容都可以认为是节点，比如：doctype、html、head、 ...</div><div class="read-more"><a class="more" href="/2019/08/28/JavaScript-DOM/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2019/08/27/JavaScript-事件/">JavaScript-事件</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-08-27T13:03:51.000Z">2019-08-27</time></div><div class="recent-post-content">1. 介绍
+
+获取事件源
+
+
+
+
+为事件源绑定事件处理函数
+
+
+
+事件类型：click 、focus 、blur 、submit 、mouseover 、mouseout 、…
+
+
+事件处理函数： 当绑定的事件类型被触发的时候该函数执行
+
+
+
+从事件对象中获取事件详细信息
+
+
+
+当事件处理函数执行的时候，dom会将事件对象传递给事件处理函数
+
+2. 事件流
+前提条件：元素嵌套；每层元素上绑定事件
+
+1234567&lt;div class=&quot;outer&quot;&gt;	&lt;div class=&quot;center&quot;&gt;		&lt;div class=&quo ...</div><div class="read-more"><a class="more" href="/2019/08/27/JavaScript-事件/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2019/08/26/JavaScript-包装器/">JavaScript-包装器</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-08-26T09:25:49.000Z">2019-08-26</time></div><div class="recent-post-content">包装器类型
 Number 、 Boolean 、 String
 
 StringString.prototype.xxx
@@ -155,85 +239,4 @@ substring ...</div><div class="read-more"><a class="more" href="/2019/08/26/Java
 
 Array 继承 Object通过Array构造函数构建出来的对象可以调用Array原型中的方法，还可以调用Object原型中的方法
 
-12345v ...</div><div class="read-more"><a class="more" href="/2019/08/23/JavaScript-数组/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2019/08/22/JavaScript-函数/">JavaScript-函数(Function)</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-08-22T11:25:02.000Z">2019-08-22</time></div><div class="recent-post-content">1.函数的用处
-
-使用函数封装某些功能代码，执行特定功能 arr.sort()          排序 arr.reverse() 数组反转 jQuery()          调用jquery函数完成特定功能 …
-
-
-
-
-使用函数封装创建对象的模板【构造函数】面向对象
-
-
-2.函数的使用（功能）
-1) 函数的定义
-
-
-函数声明
-
-123function 函数名(形参) &#123;	函数体&#125;
-
-
-函数表达式
-
-123456789var 函数名 = function(形参)&#123;&#125;sayHello();var sayHello = function()&#123;&# ...</div><div class="read-more"><a class="more" href="/2019/08/22/JavaScript-函数/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2019/08/21/JavaScript-对象/">JavaScript-对象</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-08-21T09:24:46.000Z">2019-08-21</time></div><div class="recent-post-content">1.介绍   复杂的数据类型，引用数据类型，一般情况下，对象中包含了多个属性和方法。
-2.对象创建方式1)对象字面量  对象使用”{}”作为边界，对象是由多个属性(方法是一种特殊的属性)来组成，每个属性之间通过”,”分割，属性名与属性值之间通过”:”分割。属性名可以不使用双引号，当属性名中包含特殊字符一定使用双引号，属性值一般为常量或者具体的值，也可以变量
-1234567var obj = &#123;	name:&quot;terry&quot;,	age:12,	sayName:function()&#123;	&#125;&#125;;
-
-2)使用构造函数构建对象123456789var ...</div><div class="read-more"><a class="more" href="/2019/08/21/JavaScript-对象/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2019/08/20/JavaScript-变量/">JavaScript---变量</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-08-20T02:04:06.000Z">2019-08-20</time></div><div class="recent-post-content">
-JavaScript的特点：解释型脚本语言、弱类型语言、事件驱动型语言、交互性、安全性、平台无关性(跨平台)
-
-一、变量的声明123456var a ;   // 变量的声明 a = 3 ;   // 变量的初始化=&gt;var a = 3 ;  //声明和初始化一起
-
-二、变量的类型1.基本数据类型
-① 数字类型 number
-
-1234var  a = 3 ; var  a = 3.0 ;var  a = 011 ;var  a = 0x11 ;
-
-
-② 字符串类型 string
-
-123var str = &quot;hello world&quot;;var str = &apos ...</div><div class="read-more"><a class="more" href="/2019/08/20/JavaScript-变量/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2019/08/17/Linux-ubuntu16-04/">Linux(ubuntu16.04)</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-08-17T00:55:26.000Z">2019-08-17</time></div><div class="recent-post-content">一、Linux简介&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Linux是一种自由和开放源码的操作系统，有很多不同的版本，比如RedHat、SuSE、Ubuntu、Fedora、GentOS等等，它可以安装在手机、平板电脑、路由器、台式计算机等各种计算机硬件设备中。
-
-二、Linux特点
-开源免费
-
-安全稳定
-
-多用户多任务
-
-广泛的硬件支持
-
-模块化程度高
-
-良好的移植性
-
-
-
-三、Linux的使用1.用户管理
-在学习Linux命令之前要了解的东西：  /etc/passwd和/etc/shadow(保存Linux用户名和密码的两个重要文件)
-
-
-1)/etc/p ...</div><div class="read-more"><a class="more" href="/2019/08/17/Linux-ubuntu16-04/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2019/08/15/css3-布局/">css3--布局</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-08-15T12:13:19.000Z">2019-08-15</time></div><div class="recent-post-content">一、浮动布局
-float:left/right;
-
-脱离文档流:    1）高度和宽度默认由内容决定    2）原先所在位置就会被其他块元素抢占    3）浮动元素在一行中依次排列，当一行无法容纳的时候会自动换行
-
-应用：
-
-
-全部浮动 （2列以上）
-
-12345678910111213141516171819&lt;style&gt;   ul::after&#123;	   display:block;	   content: &quot;&quot;;	   clear: both;   &#125;   ul &gt; li &#123;   	float: left;   	widt ...</div><div class="read-more"><a class="more" href="/2019/08/15/css3-布局/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2019/08/12/css3-动画/">css-动画</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-08-11T23:04:08.000Z">2019-08-12</time></div><div class="recent-post-content">一、动画定义
-@keyframes(关键帧)规则:from和to分别代表动画的开始点和结束点（分别可以用0%和100%来表示)
-
-12345678@keyframes 动画名称 &#123;	from&#123;	&#125;	to&#123;	&#125;&#125;
-
-1234567891011@keyframes 动画名称 &#123;	25%&#123;	&#125;	50%&#123;	&#125;	100%&#123;	&#125;&#125;
-
-
-二、动画应用
-1.指定关键帧的名称  animation-name: keyframename/none;
-
-
-2.动画持续的时间（? ...</div><div class="read-more"><a class="more" href="/2019/08/12/css3-动画/#more">ReadMore</a></div><hr></div></section><nav class="cxo-page-nav"><a class="extend prev" rel="prev" href="/page/5/">&#60; PREV</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/7/">NEXT &#62;</a></nav></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io"><span>Hexo</span></a><span> | theme </span><a href="https://github.com/Longlongyu/hexo-theme-Cxo"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
+12345v ...</div><div class="read-more"><a class="more" href="/2019/08/23/JavaScript-数组/#more">ReadMore</a></div><hr></div></section><nav class="cxo-page-nav"><a class="extend prev" rel="prev" href="/page/5/">&#60; PREV</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/7/">NEXT &#62;</a></nav></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io"><span>Hexo</span></a><span> | theme </span><a href="https://github.com/Longlongyu/hexo-theme-Cxo"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
